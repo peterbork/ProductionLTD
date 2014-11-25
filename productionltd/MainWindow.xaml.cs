@@ -20,6 +20,15 @@ namespace productionltd {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            Type.Items.Add("Standard Order 1");
+            Type.Items.Add("Standard Order 2");
+
+        }
+
+        private void BtnAdd_Click(object sender, RoutedEventArgs e) {
+            string orderItem = Type.SelectedValue.ToString() +" - "+ Count.Text + " Stk";
+            OrderPreview.Items.Add(orderItem);
+            deadlineStatus.Content = Deadline.Text;
         }
     }
 }
