@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace productionltd {
     /// <summary>
@@ -20,8 +22,27 @@ namespace productionltd {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-            Type.Items.Add("Standard Order 1");
-            Type.Items.Add("Standard Order 2");
+            SqlConnection conn = new SqlConnection("Server=ealdb1.eal.local;" +
+                                                   "Database=EJL02_DB;" +
+                                                   "User Id=ejl02_usr;" +
+                                                   "Password=Baz1nga2");
+
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("getProducts", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.HasRows && reader.Read()) {
+                Type.Items.Add(reader["Name"] + " " + reader["Size"]);
+            }
+
+            reader.Close();
+
+            conn.Close();
+            conn.Dispose();
             Type.SelectedIndex = 0;
         }
 
