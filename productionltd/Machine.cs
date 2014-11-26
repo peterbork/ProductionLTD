@@ -8,5 +8,8 @@ namespace productionltd
 {
     class Machine
     {
+        private int ID;
+        public string Name { get; set; }
+        public int Quantity { get; set; }
     }
 }
