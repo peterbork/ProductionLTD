@@ -8,6 +8,6 @@
         <DatePicker Name="Deadline" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,37,0,0" Width="159"/>
         <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="174,39,0,0" Click="BtnAdd_Click"/>
         <ListBox Name="OrderPreview" HorizontalAlignment="Left" Height="211" Margin="10,66,0,0" VerticalAlignment="Top" Width="232"/>
-        <Button Content="Send Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" Margin="10,282,0,0"/>
+        <Button Content="Send Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" Margin="10,282,0,0" Click="Button_Click"/>
     </Grid>
 </Window>

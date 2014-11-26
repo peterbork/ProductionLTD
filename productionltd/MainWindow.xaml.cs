@@ -44,5 +44,10 @@ namespace productionltd {
             if (Count.Text == "")
                 Count.Text = "Antal";
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
