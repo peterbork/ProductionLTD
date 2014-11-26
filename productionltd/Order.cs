@@ -12,5 +12,6 @@ namespace productionltd
         public string Name { get; set; }
         public string Company { get; set; }
         public DateTime Deadline { get; set; }
+
     }
 }
