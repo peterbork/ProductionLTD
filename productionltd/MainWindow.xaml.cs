@@ -22,13 +22,27 @@ namespace productionltd {
             InitializeComponent();
             Type.Items.Add("Standard Order 1");
             Type.Items.Add("Standard Order 2");
-
+            Type.SelectedIndex = 0;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
             string orderItem = Type.SelectedValue.ToString() +" - "+ Count.Text + " Stk";
             OrderPreview.Items.Add(orderItem);
-            deadlineStatus.Content = Deadline.Text;
+            //deadlineStatus.Content = Deadline.Text;
+        }
+
+        private void Count_TextChanged(object sender, TextChangedEventArgs e) {
+
+        }
+
+        private void Count_GotFocus(object sender, RoutedEventArgs e) {
+            if (Count.Text == "Antal")
+                Count.Text = "";
+        }
+
+        private void Count_LostFocus(object sender, RoutedEventArgs e) {
+            if (Count.Text == "")
+                Count.Text = "Antal";
         }
     }
 }
