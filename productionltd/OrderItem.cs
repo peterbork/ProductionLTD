@@ -8,5 +8,9 @@ namespace productionltd
 {
     class OrderItem
     {
+        private int ID;
+        public int Amount { get; set; }
+        public Product Product { get; set; }
+        public List<MachineBooking> Bookings { get; set; }
     }
 }

@@ -12,5 +12,13 @@ namespace productionltd
         public string Name { get; set; }
         public bool Type { get; set; }
         public string Size { get; set; }
+        public List<Process> Processes { get; set; }
+
+        public Product(string name, bool type, string size)
+        {
+            Name = name;
+            Type = type;
+            Size = size;
+        }
     }
 }
