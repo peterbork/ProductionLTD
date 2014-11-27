@@ -57,8 +57,10 @@ namespace productionltd {
         }
 
         private void Count_GotFocus(object sender, RoutedEventArgs e) {
-            if (Count.Text == "Antal")
-                Count.Text = "";
+            TextBox t = e.Source as TextBox; 
+            
+            if (t.Text == "Antal")
+                t.Text = t.Name;
         }
 
         private void Count_LostFocus(object sender, RoutedEventArgs e) {
