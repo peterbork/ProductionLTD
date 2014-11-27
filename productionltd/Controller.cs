@@ -8,5 +8,6 @@ namespace productionltd
 {
     class Controller
     {
+        private List<Order> orders;
     }
 }

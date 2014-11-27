@@ -12,5 +12,12 @@ namespace productionltd
         public int Duration { get; set; }
         public Product Product { get; set; }
         public Machine Machine { get; set; }
+
+        public Process(int duration, Product product, Machine machine)
+        {
+            Duration = duration;
+            Product = product;
+            Machine = machine;
+        }
     }
 }
