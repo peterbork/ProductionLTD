@@ -14,5 +14,11 @@ namespace productionltd
         public DateTime Deadline { get; set; }
         public List<OrderItem> OrderItems { get; set; }
 
+        public Order(string name, string company)
+        {
+            Name = name;
+            Company = company;
+        }
+
     }
 }
