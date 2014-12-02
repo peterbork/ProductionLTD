@@ -26,10 +26,7 @@ namespace productionltd
         }
         public List<Product> getProducts(bool productType = false)
         {
-            SqlConnection conn = new SqlConnection("Server=ealdb1.eal.local;" +
-                                                   "Database=EJL02_DB;" +
-                                                   "User Id=ejl02_usr;" +
-                                                   "Password=Baz1nga2");
+            SqlConnection conn = new SqlConnection(DBConnectionString.conn);
 
             conn.Open();
 
