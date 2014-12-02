@@ -19,6 +19,12 @@ namespace productionltd {
     public partial class MachineMenu : Window {
         public MachineMenu() {
             InitializeComponent();
+            Controller _controller = new Controller();
+            
+                foreach (var machine in _controller.getMachines())
+	            {
+                    MachineList.Items.Add(machine);
+	            }
             
         }
     }

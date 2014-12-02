@@ -8,13 +8,14 @@ namespace productionltd
 {
     class Machine
     {
-        private int ID;
+        public int ID;
         public string Name { get; set; }
         public int Quantity { get; set; }
         public List<MachineBooking> bookings { get; set; }
 
-        public Machine(string name, int quantity)
+        public Machine(int id, string name, int quantity)
         {
+            ID = id;
             Name = name;
             Quantity = quantity;
         }

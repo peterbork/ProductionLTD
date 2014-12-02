@@ -48,5 +48,25 @@ namespace productionltd
             conn.Dispose();
             return products;
         }
+        public List<Machine> getMachines() {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("getMachines", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter parameter = new SqlParameter();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Machine> machines = new List<Machine>();
+
+            while (reader.Read()) {
+                machines.Add(new Machine(int.Parse(reader["id"].ToString()), reader["Name"].ToString(), int.Parse(reader["Quantity"].ToString())));
+            }
+            reader.Close();
+            conn.Close();
+            conn.Dispose();
+            return machines;
+        }
     }
 }
