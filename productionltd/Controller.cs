@@ -26,7 +26,7 @@ namespace productionltd
         }
         public List<Product> getProducts(bool productType = false)
         {
-            SqlConnection conn = new SqlConnection(DBConnectionString.conn);
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             conn.Open();
 

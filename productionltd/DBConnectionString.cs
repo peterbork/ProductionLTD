@@ -8,6 +8,6 @@ namespace productionltd
 {
     class DBConnectionString
     {
-        public static string connString = "Server=ealdb1.eal.local;" + "Database=EJL02_DB;" + "User Id=ejl02_usr;" + "Password=Baz1nga2";
+        public static string Conn = "Server=ealdb1.eal.local;" + "Database=EJL02_DB;" + "User Id=ejl02_usr;" + "Password=Baz1nga2";
     }
 }
