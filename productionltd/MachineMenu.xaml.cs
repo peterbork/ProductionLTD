@@ -17,15 +17,23 @@ namespace productionltd {
     /// Interaction logic for MachineMenu.xaml
     /// </summary>
     public partial class MachineMenu : Window {
+        Controller _controller;
         public MachineMenu() {
             InitializeComponent();
-            Controller _controller = new Controller();
+            _controller = new Controller();
             
                 foreach (var machine in _controller.getMachines())
 	            {
                     MachineList.Items.Add(machine);
 	            }
             
+        }
+
+        private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            foreach (var machineBooking in _controller.getMachineBookings(int.Parse(MachineList.SelectedItem.ToString())))
+	            {
+                    MachineBookingList.Items.Add(machineBooking);
+	            }
         }
     }
 }
