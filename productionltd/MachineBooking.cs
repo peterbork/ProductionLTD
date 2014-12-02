@@ -11,5 +11,6 @@ namespace productionltd
         private int ID;
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public Machine machine { get; set; }
     }
 }

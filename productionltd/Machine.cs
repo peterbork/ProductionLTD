@@ -11,6 +11,7 @@ namespace productionltd
         private int ID;
         public string Name { get; set; }
         public int Quantity { get; set; }
+        public List<MachineBooking> bookings { get; set; }
 
         public Machine(string name, int quantity)
         {
