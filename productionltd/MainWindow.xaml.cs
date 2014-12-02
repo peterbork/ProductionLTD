@@ -85,7 +85,7 @@ namespace productionltd {
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //_controller.CheckOrder();
-            _controller.NewOrder();
+            //_controller.NewOrder();
         }
 
         private void OrderPreview_MouseUp(object sender, MouseButtonEventArgs e) {

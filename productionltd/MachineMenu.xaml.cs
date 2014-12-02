@@ -19,6 +19,7 @@ namespace productionltd {
     public partial class MachineMenu : Window {
         public MachineMenu() {
             InitializeComponent();
+            
         }
     }
 }
