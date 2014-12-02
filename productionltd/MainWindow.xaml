@@ -1,18 +1,21 @@
 ﻿<Window x:Class="productionltd.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Production LTD" Height="400" Width="382" WindowStartupLocation="CenterScreen">
+        Title="Production LTD" Height="350" Width="525" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ComboBox Name="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Width="202" Margin="10,99,0,0"/>
-        <TextBox Name="Count" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="63" Margin="217,98,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Text="Antal" Padding="0"/>
-        <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="73" Margin="285,99,0,0" Click="BtnAdd_Click"/>
-        <ListBox Name="OrderPreview" HorizontalAlignment="Left" Height="195" Margin="10,126,0,0" VerticalAlignment="Top" Width="348"/>
-        <Button Content="Send Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="348" Margin="10,326,0,0" Click="Button_Click"/>
-        <TextBox x:Name="Company" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="221" Margin="137,15,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Text="Firma" Padding="0"/>
-        <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="221" Margin="137,43,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Padding="0" Text="Navn"/>
-        <Label Content="Company" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" FontSize="14"/>
-        <Label Content="Contact Person" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,38,0,0" FontSize="14"/>
-        <Label Content="Deadline" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,67,0,0" FontSize="14"/>
-        <TextBox Name="Deadline" IsReadOnly="True" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="221" Margin="137,71,0,0" FontWeight="Bold"/>
+        <ComboBox Name="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Margin="10,10,0,0"/>
+        <TextBox Name="Count" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="68" Margin="174,9,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Text="Antal" Padding="0"/>
+        <DatePicker Name="Deadline" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="334,66,0,0" Width="159"/>
+        <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="247,10,0,0" Click="BtnAdd_Click"/>
+        <ListBox Name="OrderPreview" HorizontalAlignment="Left" Height="211" Margin="10,66,0,0" VerticalAlignment="Top" Width="305" MouseUp="OrderPreview_MouseUp">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Click="MenuItemDelete_Click"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+            <Button Content="Send Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" Margin="10,282,0,0" Click="Button_Click"/>
+        <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="159" Margin="10,37,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Padding="0" Text="Navn"/>
+        <TextBox x:Name="Company" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="141" Margin="174,37,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Text="Firma" Padding="0"/>
     </Grid>
 </Window>
