@@ -8,9 +8,12 @@ namespace productionltd
 {
     class MachineBooking
     {
-        private int ID;
+        public int ID;
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public Machine machine { get; set; }
+        public MachineBooking(int id, DateTime startTime, DateTime endTime) {
+        }
     }
+
 }

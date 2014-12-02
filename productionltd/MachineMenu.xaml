@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MachineMenu" Height="408.733" Width="560.987">
     <Grid Margin="0,0,2,17">
-        <ListBox Name="MachineList" HorizontalAlignment="Left" Height="342" Margin="10,10,0,0" VerticalAlignment="Top" Width="217"/>
-        <Button Content="Orders" HorizontalAlignment="Left" Margin="260,10,0,0" VerticalAlignment="Top" Width="129" Height="25"/>
-        <Button Content="Deactivate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="260,262,0,0" Height="25"/>
-        <Button Content="Activate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="260,316,0,0" Height="24"/>
+        <ListBox Name="MachineList" HorizontalAlignment="Left" Height="342" Margin="10,10,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="MachineList_SelectionChanged"/>
+        <ListBox Name="MachineBookingList" HorizontalAlignment="Left" Height="296" Margin="232,13,0,0" VerticalAlignment="Top" Width="297"/>
+        <Button Content="Deactivate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="400,327,0,0" Height="25"/>
+        <Button Content="Activate" HorizontalAlignment="Left" VerticalAlignment="Top" Width="129" Margin="266,327,0,0" Height="24"/>
+        
 
     </Grid>
 </Window>
