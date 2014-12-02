@@ -9,5 +9,13 @@ namespace productionltd
     class Controller
     {
         private List<Order> orders;
+
+        internal void CheckOrder() {
+            throw new NotImplementedException();
+        }
+
+        internal void NewOrder() {
+            throw new NotImplementedException();
+        }
     }
 }

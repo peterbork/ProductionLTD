@@ -20,26 +20,33 @@ namespace productionltd {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
+
+        Controller _controller;
+
         public MainWindow() {
+            _controller = new Controller();
             InitializeComponent();
             SqlConnection conn = new SqlConnection("Server=ealdb1.eal.local;" +
                                                    "Database=EJL02_DB;" +
                                                    "User Id=ejl02_usr;" +
                                                    "Password=Baz1nga2");
+            try {
+                conn.Open();
 
-            conn.Open();
+                SqlCommand cmd = new SqlCommand("getProducts", conn);
 
-            SqlCommand cmd = new SqlCommand("getProducts", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = cmd.ExecuteReader();
 
-            SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.HasRows && reader.Read()) {
+                    Type.Items.Add(reader["Name"] + " " + reader["Size"]);
+                }
 
-            while (reader.HasRows && reader.Read()) {
-                Type.Items.Add(reader["Name"] + " " + reader["Size"]);
+                reader.Close();
+            }catch (SqlException e) {
+                Console.WriteLine(e);
             }
-
-            reader.Close();
 
             conn.Close();
             conn.Dispose();
@@ -47,7 +54,7 @@ namespace productionltd {
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
-            string orderItem = Type.SelectedValue.ToString() +" - "+ Count.Text + " Stk";
+            string orderItem = Type.SelectedValue.ToString() + " - " + Count.Text + " Stk";
             OrderPreview.Items.Add(orderItem);
             //deadlineStatus.Content = Deadline.Text;
         }
@@ -59,17 +66,33 @@ namespace productionltd {
         private void Count_GotFocus(object sender, RoutedEventArgs e) {
             TextBox t = e.Source as TextBox; 
             
-            if (t.Text == "Antal")
-                t.Text = t.Name;
+            if (t.Text == "Antal" || t.Text == "Navn" || t.Text == "Firma")
+                t.Text = "";
         }
 
         private void Count_LostFocus(object sender, RoutedEventArgs e) {
-            if (Count.Text == "")
-                Count.Text = "Antal";
+            TextBox t = e.Source as TextBox;
+            if (t.Text == "") {
+                if (t.Name == "Count")
+                    t.Text = "Antal";
+                else if (t.Name == "Company")
+                    t.Text = "Firma";
+                else
+                    t.Text = "Navn";
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //_controller.CheckOrder();
+            _controller.NewOrder();
+        }
+
+        private void OrderPreview_MouseUp(object sender, MouseButtonEventArgs e) {
+        }
+
+        private void MenuItemDelete_Click(object sender, RoutedEventArgs e) {
+            OrderPreview.Items.RemoveAt(OrderPreview.SelectedIndex);
 
         }
     }
