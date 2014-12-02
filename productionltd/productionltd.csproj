@@ -69,6 +69,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controller.cs" />
+    <Compile Include="DBConnectionString.cs" />
     <Compile Include="Machine.cs" />
     <Compile Include="MachineBooking.cs" />
     <Compile Include="MachineMenu.xaml.cs">
