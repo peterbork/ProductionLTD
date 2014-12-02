@@ -16,5 +16,6 @@
             <Button Content="Send Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="232" Margin="10,282,0,0" Click="Button_Click"/>
         <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="159" Margin="10,37,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Padding="0" Text="Navn"/>
         <TextBox x:Name="Company" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="141" Margin="174,37,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Text="Firma" Padding="0"/>
+        <Button x:Name="ToMachineWindow" Content="Button" HorizontalAlignment="Left" Margin="10,323,0,0" VerticalAlignment="Top" Width="75" Click="ToMachineWindow_Click"/>
     </Grid>
 </Window>

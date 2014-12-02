@@ -23,6 +23,7 @@ namespace productionltd {
 
         Controller _controller;
         List<Product> products = new List<Product>();
+        Dictionary<Product, int> productList = new Dictionary<Product, int>();
 
         public MainWindow() {
             _controller = new Controller();
@@ -36,7 +37,7 @@ namespace productionltd {
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
-            
+            productList.Add(products[Type.SelectedIndex], int.Parse(Count.Text));
             string orderItem = Type.SelectedValue.ToString() + " - " + Count.Text + " Stk";
             OrderPreview.Items.Add(orderItem);
             //deadlineStatus.Content = Deadline.Text;
@@ -68,15 +69,20 @@ namespace productionltd {
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //_controller.CheckOrder();
-            //_controller.NewOrder();
+            _controller.NewOrder(Name.Text, Company.Text, productList);
         }
 
         private void OrderPreview_MouseUp(object sender, MouseButtonEventArgs e) {
         }
 
         private void MenuItemDelete_Click(object sender, RoutedEventArgs e) {
+            productList.Remove(productList.ElementAt(OrderPreview.SelectedIndex).Key);
             OrderPreview.Items.RemoveAt(OrderPreview.SelectedIndex);
+        }
 
+        private void ToMachineWindow_Click(object sender, RoutedEventArgs e) {
+            MachineMenu machine = new MachineMenu();
+            machine.Show();
         }
     }
 }

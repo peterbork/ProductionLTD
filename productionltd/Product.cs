@@ -8,7 +8,7 @@ namespace productionltd
 {
     class Product
     {
-        private int ID;
+        public int ID;
         public string Name { get; set; }
         public bool Type { get; set; }
         public string Size { get; set; }

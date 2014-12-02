@@ -41,7 +41,7 @@ namespace productionltd
             List<Product> products = new List<Product>();
 
             while (reader.Read()) {
-                products.Add(new Product(reader["Name"].ToString(), Convert.ToBoolean(reader["ProductType"]), reader["Size"].ToString()));
+                products.Add(new Product(reader["Name"].ToString(), Convert.ToBoolean(reader["ProductType"]), reader["Size"].ToString()) { ID = int.Parse(reader["ID"].ToString()) });
             }
             reader.Close();
             conn.Close();
@@ -67,6 +67,10 @@ namespace productionltd
             conn.Close();
             conn.Dispose();
             return machines;
+        }
+
+        internal void NewOrder(string name, string company, Dictionary<Product, int> products) {
+            throw new NotImplementedException();
         }
     }
 }
