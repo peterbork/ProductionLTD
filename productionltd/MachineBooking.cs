@@ -13,6 +13,9 @@ namespace productionltd
         public DateTime EndTime { get; set; }
         public Machine machine { get; set; }
         public MachineBooking(int id, DateTime startTime, DateTime endTime) {
+            ID = id;
+            StartTime = startTime;
+            EndTime = endTime;
         }
     }
 

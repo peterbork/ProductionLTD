@@ -18,19 +18,22 @@ namespace productionltd {
     /// </summary>
     public partial class MachineMenu : Window {
         Controller _controller;
+        List<Machine> machines = new List<Machine>();
+
         public MachineMenu() {
             InitializeComponent();
             _controller = new Controller();
             
                 foreach (var machine in _controller.getMachines())
 	            {
-                    MachineList.Items.Add(machine);
+                    MachineList.Items.Add(machine.Name);
+                    machines.Add(machine);
 	            }
             
         }
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            foreach (var machineBooking in _controller.getMachineBookings(int.Parse(MachineList.SelectedItem.ToString())))
+            foreach (var machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex].ID))
 	            {
                     MachineBookingList.Items.Add(machineBooking);
 	            }

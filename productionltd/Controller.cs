@@ -68,6 +68,29 @@ namespace productionltd
             conn.Dispose();
             return machines;
         }
+        public List<MachineBooking> getMachineBookings(int machineID) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("getMachineBookings", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter parameter = new SqlParameter();
+            parameter.ParameterName = "@Machine_FK";
+            parameter.Value = machineID;
+            cmd.Parameters.Add(parameter);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<MachineBooking> machineBookings = new List<MachineBooking>();
+
+            while (reader.Read()) {
+                machineBookings.Add(new MachineBooking(int.Parse(reader["id"].ToString()), Convert.ToDateTime(reader["StartTime"]), Convert.ToDateTime(reader["EndTime"])));
+            }
+            reader.Close();
+            conn.Close();
+            conn.Dispose();
+            return machineBookings;
+        }
 
         internal void NewOrder(string name, string company, Dictionary<Product, int> products) {
             throw new NotImplementedException();
