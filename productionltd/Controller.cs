@@ -24,7 +24,7 @@ namespace productionltd
         {
 
         }
-        public List<Product> getStandardProducts()
+        public List<Product> getProducts(bool productType = false)
         {
             SqlConnection conn = new SqlConnection("Server=ealdb1.eal.local;" +
                                                    "Database=EJL02_DB;" +
@@ -38,20 +38,15 @@ namespace productionltd
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
             parameter.ParameterName = "@productType";
-            parameter.SqlDbType = SqlDbType.NVarChar;
-            parameter.Direction = ParameterDirection.Input;
-            parameter.Value = "1";
-
-            // Add the parameter to the Parameters collection. 
+            parameter.Value = productType;
             cmd.Parameters.Add(parameter);
             SqlDataReader reader = cmd.ExecuteReader();
             List<Product> products = new List<Product>();
+
             while (reader.Read()) {
                 products.Add(new Product(reader["Name"].ToString(), Convert.ToBoolean(reader["ProductType"]), reader["Size"].ToString()));
             }
-
             reader.Close();
-
             conn.Close();
             conn.Dispose();
             return products;
