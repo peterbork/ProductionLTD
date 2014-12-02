@@ -22,38 +22,21 @@ namespace productionltd {
     public partial class MainWindow : Window {
 
         Controller _controller;
+        List<Product> products = new List<Product>();
 
         public MainWindow() {
             _controller = new Controller();
             InitializeComponent();
-            SqlConnection conn = new SqlConnection("Server=ealdb1.eal.local;" +
-                                                   "Database=EJL02_DB;" +
-                                                   "User Id=ejl02_usr;" +
-                                                   "Password=Baz1nga2");
-            try {
-                conn.Open();
 
-                SqlCommand cmd = new SqlCommand("getProducts", conn);
-
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.HasRows && reader.Read()) {
-                    Type.Items.Add(reader["Name"] + " " + reader["Size"]);
-                }
-
-                reader.Close();
-            }catch (SqlException e) {
-                Console.WriteLine(e);
+            products = _controller.getProducts();
+            foreach (Product product in products) {
+                Type.Items.Add(product.Name + " " + product.Size);
             }
-
-            conn.Close();
-            conn.Dispose();
             Type.SelectedIndex = 0;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
+            
             string orderItem = Type.SelectedValue.ToString() + " - " + Count.Text + " Stk";
             OrderPreview.Items.Add(orderItem);
             //deadlineStatus.Content = Deadline.Text;
@@ -85,7 +68,7 @@ namespace productionltd {
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //_controller.CheckOrder();
-            _controller.NewOrder();
+            //_controller.NewOrder();
         }
 
         private void OrderPreview_MouseUp(object sender, MouseButtonEventArgs e) {

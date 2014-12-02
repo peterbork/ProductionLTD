@@ -38,7 +38,7 @@ namespace productionltd
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
             parameter.ParameterName = "@productType";
-            parameter.Value = productType;
+            parameter.Value = productType ? 0 : 1;
             cmd.Parameters.Add(parameter);
             SqlDataReader reader = cmd.ExecuteReader();
             List<Product> products = new List<Product>();
