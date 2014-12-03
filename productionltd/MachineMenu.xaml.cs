@@ -34,7 +34,6 @@ namespace productionltd {
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             MessageBox.Show("hej");
-            A
             foreach (var machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex].ID))
 	            {
                     MachineBookingList.Items.Add(machineBooking.machine.bookings);
