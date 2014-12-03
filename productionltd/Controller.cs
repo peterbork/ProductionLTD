@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows;
 
 namespace productionltd
 {
@@ -28,44 +29,63 @@ namespace productionltd
         {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("getProducts", conn);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@productType";
-            parameter.Value = productType ? 0 : 1;
-            cmd.Parameters.Add(parameter);
-            SqlDataReader reader = cmd.ExecuteReader();
             List<Product> products = new List<Product>();
 
-            while (reader.Read()) {
-                products.Add(new Product(reader["Name"].ToString(), Convert.ToBoolean(reader["ProductType"]), reader["Size"].ToString()) { ID = int.Parse(reader["ID"].ToString()) });
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("getProducts", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                parameter.ParameterName = "@productType";
+                parameter.Value = productType ? 0 : 1;
+                cmd.Parameters.Add(parameter);
+                SqlDataReader reader = cmd.ExecuteReader();
+                
+                while (reader.Read()) {
+                    products.Add(new Product(reader["Name"].ToString(), Convert.ToBoolean(reader["ProductType"]), reader["Size"].ToString()) { ID = int.Parse(reader["ID"].ToString()) });
+                }
+                reader.Close();
             }
-            reader.Close();
-            conn.Close();
-            conn.Dispose();
+            catch (SqlException e) {
+                MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+            
             return products;
         }
         public List<Machine> getMachines() {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
-
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("getMachines", conn);
-
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter parameter = new SqlParameter();
-            SqlDataReader reader = cmd.ExecuteReader();
+            
             List<Machine> machines = new List<Machine>();
 
-            while (reader.Read()) {
-                machines.Add(new Machine(int.Parse(reader["id"].ToString()), reader["Name"].ToString(), int.Parse(reader["Quantity"].ToString())));
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("getMachines", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    machines.Add(new Machine(int.Parse(reader["id"].ToString()), reader["Name"].ToString(), int.Parse(reader["Quantity"].ToString())));
+                }
+
+                reader.Close();
             }
-            reader.Close();
-            conn.Close();
-            conn.Dispose();
+            catch (SqlException e) {
+                MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+            
             return machines;
         }
         public List<MachineBooking> getMachineBookings(int machineID) {
