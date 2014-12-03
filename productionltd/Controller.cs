@@ -77,7 +77,7 @@ namespace productionltd
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@Machine_FK";
+            parameter.ParameterName = "@ID";
             parameter.Value = machineID;
             cmd.Parameters.Add(parameter);
             SqlDataReader reader = cmd.ExecuteReader();
