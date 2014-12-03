@@ -33,10 +33,10 @@ namespace productionltd {
         }
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            new Alert("gg");
-            foreach (var machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex].ID))
+            MachineBookingList.Items.Clear();
+            foreach (MachineBooking machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex].ID))
 	            {
-                    MachineBookingList.Items.Add(machineBooking.machine.bookings);
+                    MachineBookingList.Items.Add(machineBooking.StartTime.ToString() + machineBooking.EndTime.ToString());
 	            }
         }
     }

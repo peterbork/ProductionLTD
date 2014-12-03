@@ -13,10 +13,6 @@ namespace productionltd
     {
         private List<Order> orders;
 
-        public void NewOrder(string name, string company)
-        {
-            Order p = new Order(name, company);
-        }
         public void NewOrderItem()
         {
 
@@ -97,7 +93,7 @@ namespace productionltd
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@ID";
+            parameter.ParameterName = "@machine";
             parameter.Value = machineID;
             cmd.Parameters.Add(parameter);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -113,7 +109,11 @@ namespace productionltd
         }
 
         internal void NewOrder(string name, string company, Dictionary<Product, int> products) {
-            throw new NotImplementedException();
+            Order o = new Order(name, company);
+            foreach (KeyValuePair<Product, int> item in products) {
+                o.OrderItems.Add(new OrderItem(item.Value, item.Key));
+            }
+            o.Save();
         }
     }
 }
