@@ -20,20 +20,21 @@ namespace productionltd
         {
             Name = name;
             Company = company;
+            OrderItems = new List<OrderItem>();
         }
         public void Save(){
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             try {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("addOrder", conn);
+                SqlCommand cmd = new SqlCommand("addOrder", conn)
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter parameter = new SqlParameter();
                 cmd.Parameters.Add(new SqlParameter("@name", Name));
                 cmd.Parameters.Add(new SqlParameter("@Company", Company));
 
-                cmd.ExecuteNonQuery();
-                
+                ID = (int)cmd.ExecuteScalar();
+
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);

@@ -31,11 +31,11 @@ namespace productionltd
                 cmd.Parameters.Add(new SqlParameter("@order", order));
                 cmd.Parameters.Add(new SqlParameter("@product", Product.ID));
 
-                cmd.ExecuteNonQuery();
+                ID = (int)cmd.ExecuteScalar();
 
             }
             catch (Exception e) {
-                Console.WriteLine(e.Message);
+                new Alert(order + " " + e.Message);
             }
             finally {
                 conn.Close();
