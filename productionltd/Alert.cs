@@ -10,5 +10,9 @@ namespace productionltd {
         public Alert(string message) {
             MessageBox.Show(message);
         }
+
+        public Alert(int number) {
+            MessageBox.Show(number + "");
+        }
     }
 }
