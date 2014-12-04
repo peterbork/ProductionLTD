@@ -7,6 +7,8 @@ using System.Windows;
 
 namespace productionltd {
     class Alert {
+        private Exception e;
+
         public Alert(string message) {
             MessageBox.Show(message);
         }
@@ -17,6 +19,10 @@ namespace productionltd {
 
         public Alert(DateTime date) {
             MessageBox.Show(date.ToString());
+        }
+
+        public Alert(Exception e) {
+            MessageBox.Show(e.Message);
         }
     }
 }
