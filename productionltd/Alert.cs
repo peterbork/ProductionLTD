@@ -14,5 +14,9 @@ namespace productionltd {
         public Alert(int number) {
             MessageBox.Show(number + "");
         }
+
+        public Alert(DateTime date) {
+            MessageBox.Show(date.ToString());
+        }
     }
 }
