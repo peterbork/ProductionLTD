@@ -40,6 +40,7 @@ namespace productionltd {
             productList.Add(products[Type.SelectedIndex], int.Parse(Count.Text));
             string orderItem = Type.SelectedValue.ToString() + " - " + Count.Text + " Stk";
             OrderPreview.Items.Add(orderItem);
+            Count.Text = "Antal";
             //deadlineStatus.Content = Deadline.Text;
         }
 
