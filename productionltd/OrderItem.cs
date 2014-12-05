@@ -69,7 +69,9 @@ namespace productionltd
 
                 }
 
-                booking = new MachineBooking(lastBooking, lastBooking.AddMinutes(time), process.Machine);
+                previousBooking = lastBooking.AddMinutes(time);
+
+                booking = new MachineBooking(lastBooking, previousBooking, process.Machine);
                 booking.Save(ID);
 
             }

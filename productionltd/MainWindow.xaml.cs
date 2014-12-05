@@ -37,10 +37,15 @@ namespace productionltd {
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e) {
-            productList.Add(products[Type.SelectedIndex], int.Parse(Count.Text));
-            string orderItem = Type.SelectedValue.ToString() + " - " + Count.Text + " Stk";
-            OrderPreview.Items.Add(orderItem);
-            Count.Text = "Antal";
+            try {
+                productList.Add(products[Type.SelectedIndex], int.Parse(Count.Text));
+                string orderItem = Type.SelectedValue.ToString() + " - " + Count.Text + " Stk";
+                OrderPreview.Items.Add(orderItem);
+                Count.Text = "Antal";
+            }
+            catch (FormatException) {
+                new Alert("Product is already added.");
+            }
             //deadlineStatus.Content = Deadline.Text;
         }
 
