@@ -41,6 +41,38 @@ namespace productionltd
                 conn.Close();
                 conn.Dispose();
             }
+
+            MakeBooking();
+        }
+
+        private void MakeBooking() {
+            Controller _controller = new Controller();
+            _controller.getProcesses(Product);
+            DateTime previousBooking = Helper.GetNextMonday();
+            DateTime lastBooking;
+            MachineBooking booking;
+
+            foreach (Process process in Product.Processes) {
+                lastBooking = Helper.GetLastBooking(process.Machine.ID, previousBooking);
+                int time = (int)Math.Ceiling((double)process.Duration * (double)Amount / (double)process.Machine.Quantity);
+                
+                if ( lastBooking != previousBooking) {
+                    DateTime combinedTime = lastBooking.AddMinutes(time);
+                    if (combinedTime.Hour >= 16) {
+
+                        lastBooking = lastBooking.AddDays(1);
+                        if ((int)lastBooking.DayOfWeek < 6)
+                            lastBooking = new DateTime(lastBooking.Year, lastBooking.Month, lastBooking.Day, 8, 0, 0, 0);
+                        else
+                            lastBooking = previousBooking;
+                    }
+
+                }
+
+                booking = new MachineBooking(lastBooking, lastBooking.AddMinutes(time), process.Machine);
+                booking.Save(ID);
+
+            }
         }
     }
 }

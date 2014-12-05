@@ -34,7 +34,7 @@ namespace productionltd {
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             MachineBookingList.Items.Clear();
-            foreach (MachineBooking machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex].ID))
+            foreach (MachineBooking machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex]))
 	            {
                     MachineBookingList.Items.Add(machineBooking.StartTime.ToString() + machineBooking.EndTime.ToString());
 	            }

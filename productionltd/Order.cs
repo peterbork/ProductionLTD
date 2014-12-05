@@ -27,7 +27,7 @@ namespace productionltd
 
             try {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("addOrder", conn)
+                SqlCommand cmd = new SqlCommand("addOrder", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter parameter = new SqlParameter();
                 cmd.Parameters.Add(new SqlParameter("@name", Name));

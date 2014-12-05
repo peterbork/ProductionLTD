@@ -12,6 +12,7 @@ namespace productionltd
     class Controller
     {
         private List<Order> orders;
+        public List<Machine> machines;
 
         public void NewOrderItem()
         {
@@ -54,10 +55,49 @@ namespace productionltd
             
             return products;
         }
+        public List<Process> getProcesses(Product product) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            product.Processes = new List<Process>();
+
+            getMachines();
+
+            try {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand("getProcesses", conn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                parameter.ParameterName = "@product";
+                parameter.Value = product.ID;
+                cmd.Parameters.Add(parameter);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    Machine pmachine = new Machine();
+                    foreach (Machine machine in machines) {
+                        if (machine.ID == int.Parse(reader["Machine_FK"].ToString()))
+                            pmachine = machine;
+                    }
+                    product.Processes.Add(new Process(int.Parse(reader["Duration"].ToString()), product, pmachine) { ID = int.Parse(reader["ID"].ToString()) });
+                }
+                reader.Close();
+            }
+            catch (SqlException e) {
+                MessageBox.Show(e.Message);
+            }
+            finally {
+                conn.Close();
+                conn.Dispose();
+            }
+
+            return product.Processes;
+        }
         public List<Machine> getMachines() {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
             
-            List<Machine> machines = new List<Machine>();
+            machines = new List<Machine>();
 
             try {
                 conn.Open();
@@ -84,7 +124,7 @@ namespace productionltd
             
             return machines;
         }
-        public List<MachineBooking> getMachineBookings(int machineID) {
+        public List<MachineBooking> getMachineBookings(Machine machine) {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             conn.Open();
@@ -94,7 +134,31 @@ namespace productionltd
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
             parameter.ParameterName = "@machine";
-            parameter.Value = machineID;
+            parameter.Value = machine.ID;
+            cmd.Parameters.Add(parameter);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<MachineBooking> machineBookings = new List<MachineBooking>();
+
+            while (reader.Read()) {
+                machineBookings.Add(new MachineBooking(Convert.ToDateTime(reader["StartTime"]), Convert.ToDateTime(reader["EndTime"]), machine));
+            }
+            reader.Close();
+            conn.Close();
+            conn.Dispose();
+            return machineBookings;
+        }
+
+        /*public List<MachineBooking> getMachineBookings(DateTime afterTime) {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("getMachineBookings", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter parameter = new SqlParameter();
+            parameter.ParameterName = "@aftertime";
+            parameter.Value = afterTime;
             cmd.Parameters.Add(parameter);
             SqlDataReader reader = cmd.ExecuteReader();
             List<MachineBooking> machineBookings = new List<MachineBooking>();
@@ -106,7 +170,7 @@ namespace productionltd
             conn.Close();
             conn.Dispose();
             return machineBookings;
-        }
+        }*/
 
         internal void NewOrder(string name, string company, Dictionary<Product, int> products) {
             Order o = new Order(name, company);

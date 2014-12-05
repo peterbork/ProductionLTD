@@ -19,6 +19,10 @@ namespace productionltd
             Name = name;
             Quantity = quantity;
         }
+
+        public Machine() {
+
+        }
         
     }
 }

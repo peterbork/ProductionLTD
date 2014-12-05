@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Alert.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="SpecialOrder.xaml.cs">
       <DependentUpon>SpecialOrder.xaml</DependentUpon>
     </Compile>
