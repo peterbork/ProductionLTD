@@ -56,22 +56,20 @@ namespace productionltd
                 lastBooking = Helper.GetLastBooking(process.Machine.ID, previousBooking);
                 int time = (int)Math.Ceiling((double)process.Duration * (double)Amount / (double)process.Machine.Quantity);
                 
-                if ( lastBooking != previousBooking) {
-                    DateTime combinedTime = lastBooking.AddMinutes(time);
-                    if (combinedTime.Hour >= 16) {
+                DateTime combinedTime = lastBooking.AddMinutes(time);
+                if (combinedTime.Hour >= 16) {
 
-                        lastBooking = lastBooking.AddDays(1);
-                        if ((int)lastBooking.DayOfWeek < 6)
-                            lastBooking = new DateTime(lastBooking.Year, lastBooking.Month, lastBooking.Day, 8, 0, 0, 0);
-                        else
-                            lastBooking = previousBooking;
-                    }
-
+                    lastBooking = lastBooking.AddDays(1);
+                    if ((int)lastBooking.DayOfWeek < 6)
+                        lastBooking = new DateTime(lastBooking.Year, lastBooking.Month, lastBooking.Day, 8, 0, 0, 0);
+                    else
+                        lastBooking = previousBooking;
                 }
 
                 previousBooking = lastBooking.AddMinutes(time);
 
-                booking = new MachineBooking(lastBooking, previousBooking, process.Machine);
+                // Adding 5 minutes for time to change product
+                booking = new MachineBooking(lastBooking.AddMinutes(5), previousBooking, process.Machine);
                 booking.Save(ID);
 
             }

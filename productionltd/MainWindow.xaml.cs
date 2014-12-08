@@ -43,7 +43,7 @@ namespace productionltd {
                 OrderPreview.Items.Add(orderItem);
                 Count.Text = "Antal";
             }
-            catch (FormatException) {
+            catch (Exception) {
                 new Alert("Product is already added.");
             }
             //deadlineStatus.Content = Deadline.Text;

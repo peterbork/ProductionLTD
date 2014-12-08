@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace productionltd {
     static class Helper {
@@ -18,6 +19,19 @@ namespace productionltd {
             int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
             if (daysToAdd == 0) daysToAdd = 7;
             return start.AddDays(daysToAdd);
+        }
+
+        public static int GetWeeksInYear(int year) {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date1 = new DateTime(year, 12, 31);
+            Calendar cal = dfi.Calendar;
+            return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule,
+                                                dfi.FirstDayOfWeek);
+        }
+
+        public static int GetWeekNumber(DateTime date) {
+            var day = (int)CultureInfo.CurrentCulture.Calendar.GetDayOfWeek(date);
+            return CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(date.AddDays(4 - (day == 0 ? 7 : day)), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
         public static DateTime GetLastBooking(int machine, DateTime nextWeek) {

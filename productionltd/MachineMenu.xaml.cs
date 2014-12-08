@@ -23,13 +23,25 @@ namespace productionltd {
         public MachineMenu() {
             InitializeComponent();
             _controller = new Controller();
+            string[] weekDays = new string[] { "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"};
             
-                foreach (var machine in _controller.getMachines())
-	            {
-                    MachineList.Items.Add(machine.Name);
-                    machines.Add(machine);
-	            }
-            
+            foreach (var machine in _controller.getMachines())
+	        {
+                MachineList.Items.Add(machine.Name);
+                machines.Add(machine);
+	        }
+
+            for (int i = 1; i <= Helper.GetWeeksInYear(DateTime.Now.Year); i++) {
+                Week.Items.Add("Uge " + i);
+            }
+           
+            Week.SelectedIndex = Helper.GetWeekNumber(DateTime.Now) - 1;
+
+            foreach (string day in weekDays) {
+                Day.Items.Add(day);
+            }
+
+            Day.SelectedIndex = (int)DateTime.Now.DayOfWeek - 1;
         }
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -38,6 +50,10 @@ namespace productionltd {
 	            {
                     MachineBookingList.Items.Add(machineBooking.StartTime.ToString() + machineBooking.EndTime.ToString());
 	            }
+        }
+
+        private void Week_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            //_controller.getBookings(Da)
         }
     }
 }
