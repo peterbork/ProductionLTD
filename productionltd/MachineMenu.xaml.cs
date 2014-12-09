@@ -19,6 +19,7 @@ namespace productionltd {
     public partial class MachineMenu : Window {
         Controller _controller;
         List<Machine> machines = new List<Machine>();
+        Machine selectedMachine;
 
         public MachineMenu() {
             InitializeComponent();
@@ -35,25 +36,31 @@ namespace productionltd {
                 Week.Items.Add("Uge " + i);
             }
            
-            Week.SelectedIndex = Helper.GetWeekNumber(DateTime.Now) - 1;
+            
 
             foreach (string day in weekDays) {
                 Day.Items.Add(day);
             }
-
+            selectedMachine = machines[0];
             Day.SelectedIndex = (int)DateTime.Now.DayOfWeek - 1;
+            Week.SelectedIndex = Helper.GetWeekNumber(DateTime.Now) - 1;
         }
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             MachineBookingList.Items.Clear();
-            foreach (MachineBooking machineBooking in _controller.getMachineBookings(machines[MachineList.SelectedIndex]))
-	            {
-                    MachineBookingList.Items.Add(machineBooking.StartTime.ToString() + machineBooking.EndTime.ToString());
-	            }
+            selectedMachine = machines[MachineList.SelectedIndex];
+            
         }
 
         private void Week_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            //_controller.getBookings(Da)
+            int inet = int.Parse(Week.SelectedItem.ToString().Replace("Uge ", ""));
+            int tner = Day.SelectedIndex+1;
+            DateTime dateWeek = Helper.DateFromWeek(DateTime.Today.Year, inet, tner);
+            MachineBookingList.Items.Clear();
+            foreach (var booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID))
+            {
+                MachineBookingList.Items.Add(booking.machine.Name + " " + booking.ID);
+            }
         }
     }
 }
