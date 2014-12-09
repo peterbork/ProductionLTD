@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
 
+
 namespace productionltd
 {
     class Controller
@@ -178,6 +179,12 @@ namespace productionltd
                 o.OrderItems.Add(new OrderItem(item.Value, item.Key));
             }
             o.Save();
+        }
+        public Product addSpecialProduct(string name, string size )
+        {
+            Product p = new Product(name, false, size);
+            p.Save();
+            return p;
         }
     }
 }

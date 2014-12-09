@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace productionltd
 {
@@ -19,6 +21,31 @@ namespace productionltd
             Name = name;
             Type = type;
             Size = size;
+        }
+        public void Save()
+        {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("addProduct", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter parameter = new SqlParameter();
+                cmd.Parameters.Add(new SqlParameter("@name", Name));
+                cmd.Parameters.Add(new SqlParameter("@Size", Size));
+
+                ID = (int)cmd.ExecuteScalar();
+
+            }
+            catch (Exception e)
+            {
+                new Alert(e.Message);
+            }
+            finally
+            {
+                conn.Close();
+                conn.Dispose();
+            }
         }
     }
 }
