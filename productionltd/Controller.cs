@@ -155,7 +155,7 @@ namespace productionltd
 
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("getMachineBookings", conn);
+            SqlCommand cmd = new SqlCommand("getBookingsFromDate", conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
@@ -171,7 +171,7 @@ namespace productionltd
 	            {
 		            if (m.ID == (int)reader["Machine_FK"])
 	                {
-		                 machineBookings.Add(new MachineBooking((DateTime)reader["StartTime"], (DateTime)reader["EndTime"], m));
+                        machineBookings.Add(new MachineBooking((DateTime)reader["StartTime"], (DateTime)reader["EndTime"], m) {ID=(int)reader["ID"]} );
 	                }
 	            }
             }

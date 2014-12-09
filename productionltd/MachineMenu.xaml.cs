@@ -56,9 +56,10 @@ namespace productionltd {
             int inet = int.Parse(Week.SelectedItem.ToString().Replace("Uge ", ""));
             int tner = Day.SelectedIndex+1;
             DateTime dateWeek = Helper.DateFromWeek(DateTime.Today.Year, inet, tner);
+            MachineBookingList.Items.Clear();
             foreach (var booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID))
             {
-                MachineBookingList.Items.Add(booking);
+                MachineBookingList.Items.Add(booking.machine.Name + " " + booking.ID);
             }
         }
     }
