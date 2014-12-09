@@ -47,20 +47,28 @@ namespace productionltd {
         }
 
         private void MachineList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            MachineBookingList.Items.Clear();
             selectedMachine = machines[MachineList.SelectedIndex];
-            
+            GetBookings();
         }
 
         private void Week_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            int inet = int.Parse(Week.SelectedItem.ToString().Replace("Uge ", ""));
-            int tner = Day.SelectedIndex+1;
-            DateTime dateWeek = Helper.DateFromWeek(DateTime.Today.Year, inet, tner);
-            MachineBookingList.Items.Clear();
-            foreach (var booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID))
-            {
-                MachineBookingList.Items.Add(booking.machine.Name + " " + booking.ID);
+            GetBookings();
+        }
+
+        private void GetBookings() {
+            if (Week.SelectedIndex > -1 && Day.SelectedIndex > -1) {
+                int inet = int.Parse(Week.SelectedItem.ToString().Replace("Uge ", ""));
+                int tner = Day.SelectedIndex + 1;
+                DateTime dateWeek = Helper.DateFromWeek(DateTime.Today.Year, inet, tner);
+                MachineBookingList.Items.Clear();
+                foreach (var booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID)) {
+                    MachineBookingList.Items.Add(booking.machine.Name + " " + booking.ID);
+                }
             }
+        }
+
+        private void Day_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            GetBookings();
         }
     }
 }

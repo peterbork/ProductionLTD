@@ -6,7 +6,7 @@
         <ListBox Name="MachineList" HorizontalAlignment="Left" Height="342" Margin="10,10,0,0" VerticalAlignment="Top" Width="217" SelectionChanged="MachineList_SelectionChanged"/>
         <ListBox Name="MachineBookingList" HorizontalAlignment="Left" Height="315" Margin="232,37,0,0" VerticalAlignment="Top" Width="297"/>
         <ComboBox x:Name="Week" HorizontalAlignment="Left" Margin="232,10,0,0" VerticalAlignment="Top" Width="140" SelectionChanged="Week_SelectionChanged"/>
-        <ComboBox x:Name="Day" HorizontalAlignment="Left" Margin="389,10,0,0" VerticalAlignment="Top" Width="140"/>
+        <ComboBox x:Name="Day" HorizontalAlignment="Left" Margin="389,10,0,0" VerticalAlignment="Top" Width="140" SelectionChanged="Day_SelectionChanged"/>
 
 
     </Grid>
