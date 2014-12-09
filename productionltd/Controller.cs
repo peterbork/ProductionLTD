@@ -186,6 +186,7 @@ namespace productionltd
             p.Save();
             foreach (Process process in processList)
 	        {
+                process.Product = p;
                 p.Processes.Add(process);
                 process.Save();
 	        }

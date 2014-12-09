@@ -21,6 +21,7 @@ namespace productionltd
             Name = name;
             Type = type;
             Size = size;
+            Processes = new List<Process>();
         }
         public void Save()
         {
