@@ -149,6 +149,37 @@ namespace productionltd
             conn.Dispose();
             return machineBookings;
         }
+        public List<MachineBooking> getMachineBookings(DateTime date)
+        {
+            SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
+
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("getMachineBookings", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlParameter parameter = new SqlParameter();
+            parameter.ParameterName = "@date";
+            parameter.Value = date;
+            cmd.Parameters.Add(parameter);
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<MachineBooking> machineBookings = new List<MachineBooking>();
+            List<Machine> machines = getMachines();
+            while (reader.Read())
+            {
+                foreach (Machine m in machines)
+	            {
+		            if (m.ID == (int)reader["Machine_FK"])
+	                {
+		                 machineBookings.Add(new MachineBooking((DateTime)reader["StartTime"], (DateTime)reader["EndTime"], m));
+	                }
+	            }
+            }
+            reader.Close();
+            conn.Close();
+            conn.Dispose();
+            return machineBookings;
+        }
 
         /*public List<MachineBooking> getMachineBookings(DateTime afterTime) {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);

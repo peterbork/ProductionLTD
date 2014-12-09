@@ -53,7 +53,7 @@ namespace productionltd {
         }
 
         private void Week_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            //_controller.getBookings(Da)
+            _controller.getBookings(Helper.DateFromWeek(DateTime.Today.Year, int.Parse(Week.SelectedItem.ToString().Replace("Uge ", "")), int.Parse((string)Day.SelectedItem)));
         }
     }
 }
