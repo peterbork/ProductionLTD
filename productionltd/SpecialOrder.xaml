@@ -4,14 +4,14 @@
         Title="SpecialOrder" Height="420" Width="300">
     <Grid>
         <Label Content="Størrelse:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,10,0,0"/>
-        <TextBox x:Name="width" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="57" Margin="75,13,0,0"/>
+        <TextBox x:Name="width" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="57" Margin="75,13,0,0"/>
         <Label Content="x" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="130,10,0,0"/>
-        <TextBox x:Name="height" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="57" Margin="145,13,0,0"/>
+        <TextBox x:Name="height" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="57" Margin="145,13,0,0"/>
         <Label Content="x" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,10,0,0"/>
-        <TextBox x:Name="length" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="57" Margin="216,13,0,0"/>
+        <TextBox x:Name="length" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="57" Margin="216,13,0,0"/>
         <Label Content="Materiale:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15,41,0,0"/>
-        <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="135" Margin="76,44,0,0"/>
-        <TextBox x:Name="MachineTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="127" Margin="146,86,0,0" KeyUp="SaveTime"/>
+        <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="135" Margin="76,44,0,0"/>
+        <TextBox x:Name="MachineTime" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="127" Margin="146,86,0,0" KeyUp="SaveTime"/>
         <Button Content="Tilføj Produkt" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" Margin="86,134,0,0" Click="Button_Click"/>
         <ComboBox x:Name="Machines" HorizontalAlignment="Left" Margin="15,87,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Machines_SelectionChanged"/>
 

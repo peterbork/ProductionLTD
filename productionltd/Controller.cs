@@ -184,11 +184,11 @@ namespace productionltd
         public Product addSpecialProduct(string name, string size, List<Process> processList)
         {
             Product p = new Product(name, false, size);
+            p.Save();
             foreach (Process process in processList)
 	        {
                 process.Product = p;
                 p.Processes.Add(process);
-                p.Save();
                 if (process.Duration > 0)
                 {
                     process.Save();

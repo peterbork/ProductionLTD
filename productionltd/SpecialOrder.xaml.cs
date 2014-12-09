@@ -54,6 +54,7 @@ namespace productionltd {
             string size = width.Text + " x " + height.Text + " x " + length.Text;
             Product product = _controller.addSpecialProduct(Name.Text, size, processes);
             Controller.mainwindow.AddToProductList(product);
+            this.Close();
         }
     }
 }
