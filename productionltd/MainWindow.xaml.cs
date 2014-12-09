@@ -60,6 +60,7 @@ namespace productionltd {
             Type.Items.Add(product.Name + " " + product.Size);
             Type.Items.Add("New product");
             products.Add(product);
+            Type.SelectedIndex = Type.Items.Count - 2;
         }
 
         private void Count_GotFocus(object sender, RoutedEventArgs e) {
