@@ -188,12 +188,12 @@ namespace productionltd
 	        {
                 process.Product = p;
                 p.Processes.Add(process);
+                p.Save();
                 if (process.Duration > 0)
                 {
                     process.Save();
                 }
 	        }
-            p.Save();
             return p;
         }
     }
