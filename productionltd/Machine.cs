@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace productionltd
 {
-    class Machine
+    public class Machine
     {
         public int ID;
         public string Name { get; set; }
         public int Quantity { get; set; }
         public List<MachineBooking> bookings { get; set; }
+
 
         public Machine(int id, string name, int quantity)
         {

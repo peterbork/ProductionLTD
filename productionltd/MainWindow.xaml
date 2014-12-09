@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Production LTD" Height="400" Width="342.196" WindowStartupLocation="CenterScreen">
     <Grid>
-        <ComboBox Name="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Margin="10,10,0,0"/>
+        <ComboBox Name="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Width="159" Margin="10,10,0,0" SelectionChanged="Type_SelectionChanged"/>
         <TextBox Name="Count" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" GotFocus="Count_GotFocus" LostFocus="Count_LostFocus"  VerticalAlignment="Top" Width="68" Margin="174,9,0,0" ToolTip="Count" FontWeight="Bold" TextChanged="Count_TextChanged" Text="Antal" Padding="0"/>
         <Button Name="BtnAdd" Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="68" Margin="247,10,0,0" Click="BtnAdd_Click"/>
         <ListBox Name="OrderPreview" HorizontalAlignment="Left" Height="211" Margin="10,66,0,0" VerticalAlignment="Top" Width="305" MouseUp="OrderPreview_MouseUp">

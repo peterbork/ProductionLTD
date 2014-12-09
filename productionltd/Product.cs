@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace productionltd
 {
-    class Product
+    public class Product
     {
         public int ID;
         public string Name { get; set; }

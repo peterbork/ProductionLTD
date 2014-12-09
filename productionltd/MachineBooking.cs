@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace productionltd
 {
-    class MachineBooking
+    public class MachineBooking
     {
         public int ID;
         public DateTime StartTime { get; set; }

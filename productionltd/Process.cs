@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 
 namespace productionltd
 {
-    class Process
+    public class Process
     {
         public int ID;
         public int Duration { get; set; }
@@ -19,6 +19,10 @@ namespace productionltd
         {
             Duration = duration;
             Product = product;
+            Machine = machine;
+        }
+        public Process(int duration, Machine machine) {
+            Duration = duration;
             Machine = machine;
         }
         public void Save()

@@ -28,11 +28,13 @@ namespace productionltd {
         public MainWindow() {
             _controller = new Controller();
             InitializeComponent();
+            Controller.mainwindow = this;
 
             products = _controller.getProducts();
             foreach (Product product in products) {
                 Type.Items.Add(product.Name + " " + product.Size);
             }
+            Type.Items.Add("New product");
             Type.SelectedIndex = 0;
         }
 
@@ -51,6 +53,13 @@ namespace productionltd {
 
         private void Count_TextChanged(object sender, TextChangedEventArgs e) {
 
+        }
+
+        public void AddToProductList(Product product) {
+            Type.Items.RemoveAt(Type.Items.Count-1);
+            Type.Items.Add(product.Name + " " + product.Size);
+            Type.Items.Add("New product");
+            products.Add(product);
         }
 
         private void Count_GotFocus(object sender, RoutedEventArgs e) {
@@ -89,6 +98,14 @@ namespace productionltd {
         private void ToMachineWindow_Click(object sender, RoutedEventArgs e) {
             MachineMenu machine = new MachineMenu();
             machine.Show();
+        }
+
+        private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (Type.SelectedIndex == Type.Items.Count - 1) {      
+                SpecialOrder s = new SpecialOrder();
+                s.Show();
+            }
+
         }
     }
 }

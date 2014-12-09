@@ -14,6 +14,7 @@ namespace productionltd
     {
         private List<Order> orders;
         public List<Machine> machines;
+        public static MainWindow mainwindow;
 
         public void NewOrderItem()
         {
