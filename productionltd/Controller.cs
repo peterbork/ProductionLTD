@@ -149,7 +149,7 @@ namespace productionltd
             conn.Dispose();
             return machineBookings;
         }
-        public List<MachineBooking> getMachineBookings(DateTime date)
+        public List<MachineBooking> getMachineBookings(DateTime date, int machineId)
         {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
@@ -159,9 +159,9 @@ namespace productionltd
 
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@date";
-            parameter.Value = date;
-            cmd.Parameters.Add(parameter);
+            cmd.Parameters.Add(new SqlParameter("@machine", machineId));
+            cmd.Parameters.Add(new SqlParameter("@date", date));
+
             SqlDataReader reader = cmd.ExecuteReader();
             List<MachineBooking> machineBookings = new List<MachineBooking>();
             List<Machine> machines = getMachines();
