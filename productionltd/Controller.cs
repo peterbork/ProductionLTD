@@ -180,10 +180,15 @@ namespace productionltd
             }
             o.Save();
         }
-        public Product addSpecialProduct(string name, string size )
+        public Product addSpecialProduct(string name, string size, List<Process> processList)
         {
             Product p = new Product(name, false, size);
             p.Save();
+            foreach (Process process in processList)
+	        {
+                p.Processes.Add(process);
+                process.Save();
+	        }
             return p;
         }
     }
