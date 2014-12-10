@@ -149,7 +149,7 @@ namespace productionltd
             conn.Dispose();
             return machineBookings;
         }
-        public List<MachineBooking> getMachineBookings(DateTime date, int machineId)
+        public List<Dictionary<string,string>> getMachineBookings(DateTime date, int machineId)
         {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
@@ -163,22 +163,34 @@ namespace productionltd
             cmd.Parameters.Add(new SqlParameter("@date", date));
 
             SqlDataReader reader = cmd.ExecuteReader();
-            List<MachineBooking> machineBookings = new List<MachineBooking>();
-            List<Machine> machines = getMachines();
+            /*List<MachineBooking> machineBookings = new List<MachineBooking>();
+            List<Machine> machines = getMachines();*/
+
+            List<Dictionary<string, string>> bookings = new List<Dictionary<string,string>>();
+
             while (reader.Read())
             {
-                foreach (Machine m in machines)
+                /*foreach (Machine m in machines)
 	            {
 		            if (m.ID == (int)reader["Machine_FK"])
 	                {
                         machineBookings.Add(new MachineBooking((DateTime)reader["StartTime"], (DateTime)reader["EndTime"], m) {ID=(int)reader["ID"]} );
 	                }
-	            }
+	            }*/
+
+                Dictionary<string, string> values = new Dictionary<string, string>();
+
+                values.Clear();
+                values.Add("OrderName", reader["OrderName"].ToString());
+                values.Add("ProductName", reader["ProductName"].ToString());
+                values.Add("StartTime", reader["StartTime"].ToString());
+                values.Add("Duration", reader["Duration"].ToString());
+                bookings.Add(values);
             }
             reader.Close();
             conn.Close();
             conn.Dispose();
-            return machineBookings;
+            return bookings;
         }
 
         /*public List<MachineBooking> getMachineBookings(DateTime afterTime) {

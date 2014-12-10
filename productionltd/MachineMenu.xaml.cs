@@ -42,6 +42,7 @@ namespace productionltd {
                 Day.Items.Add(day);
             }
             selectedMachine = machines[0];
+            MachineList.SelectedIndex = 0;
             Day.SelectedIndex = (int)DateTime.Now.DayOfWeek - 1;
             Week.SelectedIndex = Helper.GetWeekNumber(DateTime.Now) - 1;
         }
@@ -61,8 +62,8 @@ namespace productionltd {
                 int tner = Day.SelectedIndex + 1;
                 DateTime dateWeek = Helper.DateFromWeek(DateTime.Today.Year, inet, tner);
                 MachineBookingList.Items.Clear();
-                foreach (var booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID)) {
-                    MachineBookingList.Items.Add(booking.machine.Name + " " + booking.ID);
+                foreach (Dictionary<string, string> booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID)) {
+                    MachineBookingList.Items.Add(" Start: " + booking["StartTime"] + " Tid: " + booking["Duration"] + " minutter " + " Produkt: " + booking["ProductName"] + " Kunde: " + booking["OrderName"]);
                 }
             }
         }
