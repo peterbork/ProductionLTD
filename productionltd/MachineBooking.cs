@@ -13,33 +13,38 @@ namespace productionltd
         public int ID;
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public Machine machine { get; set; }
-        public MachineBooking(DateTime startTime, DateTime endTime, Machine machine) {
+        public Machine Machine { get; set; }
+        public MachineBooking(DateTime startTime, DateTime endTime, Machine machine)
+        {
             StartTime = startTime;
             EndTime = endTime;
-            this.machine = machine;
+            this.Machine = machine;
         }
 
-        internal void Save(int orderItem) {
+        internal void Save(int orderItem)
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
-            
-            try {
+
+            try
+            {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("addMachineBooking", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter parameter = new SqlParameter();
                 cmd.Parameters.Add(new SqlParameter("@startTime", StartTime));
                 cmd.Parameters.Add(new SqlParameter("@endTime", EndTime));
-                cmd.Parameters.Add(new SqlParameter("@machine", machine.ID));
+                cmd.Parameters.Add(new SqlParameter("@machine", Machine.ID));
                 cmd.Parameters.Add(new SqlParameter("@orderItem", orderItem));
 
                 ID = (int)cmd.ExecuteNonQuery();
 
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 //new Alert(StartTime + " " + EndTime);
             }
-            finally {
+            finally
+            {
                 conn.Close();
                 conn.Dispose();
             }

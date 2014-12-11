@@ -21,7 +21,8 @@ namespace productionltd
             Product = product;
             Machine = machine;
         }
-        public Process(int duration, Machine machine) {
+        public Process(int duration, Machine machine)
+        {
             Duration = duration;
             Machine = machine;
         }

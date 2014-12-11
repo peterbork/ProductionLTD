@@ -15,14 +15,17 @@ namespace productionltd
         public Product Product { get; set; }
         public List<MachineBooking> Bookings { get; set; }
 
-        public OrderItem(int amount, Product product) {
+        public OrderItem(int amount, Product product)
+        {
             Amount = amount;
             Product = product;
         }
-        public void Save(int order) {
+        public void Save(int order)
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
-            try {
+            try
+            {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("addOrderItem", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -34,10 +37,12 @@ namespace productionltd
                 ID = (int)cmd.ExecuteScalar();
 
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 new Alert(order + " " + e.Message);
             }
-            finally {
+            finally
+            {
                 conn.Close();
                 conn.Dispose();
             }
@@ -45,19 +50,22 @@ namespace productionltd
             MakeBooking();
         }
 
-        private void MakeBooking() {
+        private void MakeBooking()
+        {
             Controller _controller = new Controller();
-            _controller.getProcesses(Product);
+            _controller.GetProcesses(Product);
             DateTime previousBooking = Helper.GetNextMonday();
             DateTime lastBooking;
             MachineBooking booking;
 
-            foreach (Process process in Product.Processes) {
+            foreach (Process process in Product.Processes)
+            {
                 lastBooking = Helper.GetLastBooking(process.Machine.ID, previousBooking);
                 int time = (int)Math.Ceiling((double)process.Duration * (double)Amount / (double)process.Machine.Quantity);
-                
+
                 DateTime combinedTime = lastBooking.AddMinutes(time);
-                if (combinedTime.Hour >= 16) {
+                if (combinedTime.Hour >= 16)
+                {
 
                     lastBooking = lastBooking.AddDays(1);
                     if ((int)lastBooking.DayOfWeek < 6)
