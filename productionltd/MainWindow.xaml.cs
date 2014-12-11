@@ -34,7 +34,7 @@ namespace productionltd {
             foreach (Product product in products) {
                 Type.Items.Add(product.Name + " " + product.Size);
             }
-            Type.Items.Add("New product");
+            Type.Items.Add("Nyt produkt");
             Type.SelectedIndex = 0;
         }
 
@@ -46,7 +46,7 @@ namespace productionltd {
                 Count.Text = "Antal";
             }
             catch (Exception) {
-                new Alert("Product is already added.");
+                new Alert("Produktet er allerede tilføjet.");
             }
             //deadlineStatus.Content = Deadline.Text;
         }
@@ -58,7 +58,7 @@ namespace productionltd {
         public void AddToProductList(Product product) {
             Type.Items.RemoveAt(Type.Items.Count-1);
             Type.Items.Add(product.Name + " " + product.Size);
-            Type.Items.Add("New product");
+            Type.Items.Add("Nyt produkt");
             products.Add(product);
             Type.SelectedIndex = Type.Items.Count - 2;
         }
