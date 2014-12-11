@@ -7,21 +7,26 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 
-namespace productionltd {
-    static class Helper {
+namespace productionltd
+{
+    static class Helper
+    {
 
-        public static DateTime GetNextMonday() {
+        public static DateTime GetNextMonday()
+        {
             return GetNextWeekday(DateTime.Today, DayOfWeek.Monday).AddHours(8);
         }
 
-        public static DateTime GetNextWeekday(DateTime start, DayOfWeek day) {
+        public static DateTime GetNextWeekday(DateTime start, DayOfWeek day)
+        {
             // The (... + 7) % 7 ensures we end up with a value in the range [0, 6]
             int daysToAdd = ((int)day - (int)start.DayOfWeek + 7) % 7;
             if (daysToAdd == 0) daysToAdd = 7;
             return start.AddDays(daysToAdd);
         }
 
-        public static int GetWeeksInYear(int year) {
+        public static int GetWeeksInYear(int year)
+        {
             DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
             DateTime date1 = new DateTime(year, 12, 31);
             Calendar cal = dfi.Calendar;
@@ -29,12 +34,14 @@ namespace productionltd {
                                                 dfi.FirstDayOfWeek);
         }
 
-        public static int GetWeekNumber(DateTime date) {
+        public static int GetWeekNumber(DateTime date)
+        {
             var day = (int)CultureInfo.CurrentCulture.Calendar.GetDayOfWeek(date);
             return CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(date.AddDays(4 - (day == 0 ? 7 : day)), CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public static DateTime GetLastBooking(int machine, DateTime nextWeek) {
+        public static DateTime GetLastBooking(int machine, DateTime nextWeek)
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             conn.Open();
@@ -46,7 +53,7 @@ namespace productionltd {
             cmd.Parameters.Add(new SqlParameter("@nextWeek", nextWeek));
             /*SqlDataReader reader = cmd.ExecuteReader();*/
 
-             
+
             Object endtime = cmd.ExecuteScalar();
 
             /*while (reader.Read()) {
@@ -60,7 +67,7 @@ namespace productionltd {
             if (endtime != null)
                 return Convert.ToDateTime(endtime);
             else
-            return nextWeek;
+                return nextWeek;
         }
         // http://stackoverflow.com/a/9064954
         public static DateTime DateFromWeek(int year, int weekOfYear, int dayOfWeek)

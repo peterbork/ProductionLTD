@@ -26,7 +26,7 @@ namespace productionltd {
             _controller = new Controller();
             string[] weekDays = new string[] { "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"};
             
-            foreach (var machine in _controller.getMachines())
+            foreach (var machine in _controller.GetMachines())
 	        {
                 MachineList.Items.Add(machine.Name);
                 machines.Add(machine);
@@ -62,7 +62,7 @@ namespace productionltd {
                 int tner = Day.SelectedIndex + 1;
                 DateTime dateWeek = Helper.DateFromWeek(DateTime.Today.Year, inet, tner);
                 MachineBookingList.Items.Clear();
-                foreach (Dictionary<string, string> booking in _controller.getMachineBookings(dateWeek, selectedMachine.ID)) {
+                foreach (Dictionary<string, string> booking in _controller.GetMachineBookings(dateWeek, selectedMachine.ID)) {
                     MachineBookingList.Items.Add(" Start: " + booking["StartTime"] + " Tid: " + booking["Duration"] + " minutter " + " Produkt: " + booking["ProductName"] + " Kunde: " + booking["OrderName"]);
                 }
             }

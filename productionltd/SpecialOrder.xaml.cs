@@ -27,7 +27,7 @@ namespace productionltd {
         public SpecialOrder() {
             InitializeComponent();
             _controller = new Controller();
-            foreach (Machine machine in _controller.getMachines()) {
+            foreach (Machine machine in _controller.GetMachines()) {
                 machines.Add(machine, 0);
                 Machines.Items.Add(machine.Name);
             }
@@ -52,7 +52,7 @@ namespace productionltd {
                 processes.Add(new Process(process.Value, process.Key));
             }
             string size = width.Text + " x " + height.Text + " x " + length.Text;
-            Product product = _controller.addSpecialProduct(Name.Text, size, processes);
+            Product product = _controller.AddSpecialProduct(Name.Text, size, processes);
             Controller.mainwindow.AddToProductList(product);
             this.Close();
         }

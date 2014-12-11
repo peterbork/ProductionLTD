@@ -24,13 +24,14 @@ namespace productionltd
         {
 
         }
-        public List<Product> getProducts(bool productType = false)
+        public List<Product> GetProducts(bool productType = false)
         {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             List<Product> products = new List<Product>();
 
-            try {
+            try
+            {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand("getProducts", conn);
@@ -41,30 +42,35 @@ namespace productionltd
                 parameter.Value = productType ? 0 : 1;
                 cmd.Parameters.Add(parameter);
                 SqlDataReader reader = cmd.ExecuteReader();
-                
-                while (reader.Read()) {
+
+                while (reader.Read())
+                {
                     products.Add(new Product(reader["Name"].ToString(), Convert.ToBoolean(reader["ProductType"]), reader["Size"].ToString()) { ID = int.Parse(reader["ID"].ToString()) });
                 }
                 reader.Close();
             }
-            catch (SqlException e) {
+            catch (SqlException e)
+            {
                 MessageBox.Show(e.Message);
             }
-            finally {
+            finally
+            {
                 conn.Close();
                 conn.Dispose();
             }
-            
+
             return products;
         }
-        public List<Process> getProcesses(Product product) {
+        public List<Process> GetProcesses(Product product)
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             product.Processes = new List<Process>();
 
-            getMachines();
+            GetMachines();
 
-            try {
+            try
+            {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand("getProcesses", conn);
@@ -76,9 +82,11 @@ namespace productionltd
                 cmd.Parameters.Add(parameter);
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read()) {
+                while (reader.Read())
+                {
                     Machine pmachine = new Machine();
-                    foreach (Machine machine in machines) {
+                    foreach (Machine machine in machines)
+                    {
                         if (machine.ID == int.Parse(reader["Machine_FK"].ToString()))
                             pmachine = machine;
                     }
@@ -86,22 +94,26 @@ namespace productionltd
                 }
                 reader.Close();
             }
-            catch (SqlException e) {
+            catch (SqlException e)
+            {
                 MessageBox.Show(e.Message);
             }
-            finally {
+            finally
+            {
                 conn.Close();
                 conn.Dispose();
             }
 
             return product.Processes;
         }
-        public List<Machine> getMachines() {
+        public List<Machine> GetMachines()
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
-            
+
             machines = new List<Machine>();
 
-            try {
+            try
+            {
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand("getMachines", conn);
@@ -110,23 +122,27 @@ namespace productionltd
                 SqlParameter parameter = new SqlParameter();
                 SqlDataReader reader = cmd.ExecuteReader();
 
-                while (reader.Read()) {
+                while (reader.Read())
+                {
                     machines.Add(new Machine(int.Parse(reader["id"].ToString()), reader["Name"].ToString(), int.Parse(reader["Quantity"].ToString())));
                 }
 
                 reader.Close();
             }
-            catch (SqlException e) {
+            catch (SqlException e)
+            {
                 MessageBox.Show(e.Message);
             }
-            finally {
+            finally
+            {
                 conn.Close();
                 conn.Dispose();
             }
-            
+
             return machines;
         }
-        public List<MachineBooking> getMachineBookings(Machine machine) {
+        public List<MachineBooking> GetMachineBookings(Machine machine)
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
             conn.Open();
@@ -141,7 +157,8 @@ namespace productionltd
             SqlDataReader reader = cmd.ExecuteReader();
             List<MachineBooking> machineBookings = new List<MachineBooking>();
 
-            while (reader.Read()) {
+            while (reader.Read())
+            {
                 machineBookings.Add(new MachineBooking(Convert.ToDateTime(reader["StartTime"]), Convert.ToDateTime(reader["EndTime"]), machine));
             }
             reader.Close();
@@ -149,7 +166,7 @@ namespace productionltd
             conn.Dispose();
             return machineBookings;
         }
-        public List<Dictionary<string,string>> getMachineBookings(DateTime date, int machineId)
+        public List<Dictionary<string, string>> GetMachineBookings(DateTime date, int machineId)
         {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
@@ -166,7 +183,7 @@ namespace productionltd
             /*List<MachineBooking> machineBookings = new List<MachineBooking>();
             List<Machine> machines = getMachines();*/
 
-            List<Dictionary<string, string>> bookings = new List<Dictionary<string,string>>();
+            List<Dictionary<string, string>> bookings = new List<Dictionary<string, string>>();
 
             while (reader.Read())
             {
@@ -217,26 +234,28 @@ namespace productionltd
             return machineBookings;
         }*/
 
-        internal void NewOrder(string name, string company, Dictionary<Product, int> products) {
+        internal void NewOrder(string name, string company, Dictionary<Product, int> products)
+        {
             Order o = new Order(name, company);
-            foreach (KeyValuePair<Product, int> item in products) {
+            foreach (KeyValuePair<Product, int> item in products)
+            {
                 o.OrderItems.Add(new OrderItem(item.Value, item.Key));
             }
             o.Save();
         }
-        public Product addSpecialProduct(string name, string size, List<Process> processList)
+        public Product AddSpecialProduct(string name, string size, List<Process> processList)
         {
             Product p = new Product(name, false, size);
             p.Save();
             foreach (Process process in processList)
-	        {
+            {
                 process.Product = p;
                 p.Processes.Add(process);
                 if (process.Duration > 0)
                 {
                     process.Save();
                 }
-	        }
+            }
             return p;
         }
     }

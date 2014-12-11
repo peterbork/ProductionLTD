@@ -11,7 +11,7 @@ namespace productionltd
         public int ID;
         public string Name { get; set; }
         public int Quantity { get; set; }
-        public List<MachineBooking> bookings { get; set; }
+        public List<MachineBooking> Bookings { get; set; }
 
 
         public Machine(int id, string name, int quantity)
@@ -21,9 +21,10 @@ namespace productionltd
             Quantity = quantity;
         }
 
-        public Machine() {
+        public Machine()
+        {
 
         }
-        
+
     }
 }

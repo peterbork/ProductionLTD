@@ -22,10 +22,12 @@ namespace productionltd
             Company = company;
             OrderItems = new List<OrderItem>();
         }
-        public void Save(){
+        public void Save()
+        {
             SqlConnection conn = new SqlConnection(DBConnectionString.Conn);
 
-            try {
+            try
+            {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("addOrder", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -36,20 +38,23 @@ namespace productionltd
                 ID = (int)cmd.ExecuteScalar();
 
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.Message);
             }
-            finally{
+            finally
+            {
                 conn.Close();
                 conn.Dispose();
             }
 
-            foreach (OrderItem item in OrderItems) {
+            foreach (OrderItem item in OrderItems)
+            {
                 item.Save(ID);
             }
 
             new Alert("Order added!");
-           
+
         }
 
     }
